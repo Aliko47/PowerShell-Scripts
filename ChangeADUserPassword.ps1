@@ -1,8 +1,11 @@
-﻿Get-Module ActiveDirectory
+#Load AD Module
+Get-Module ActiveDirectory
 
+#Promp user to type in sAMAccountName
 $user = Read-Host -Prompt 'Input AD-Username'
 $newPassword = Read-Host -Prompt 'Input new password'
 $newPassword = ConvertTo-SecureString $newPassword -AsPlainText -Force
+
 $logonChangePW = Read-Host 'Change password at next logon (Y/N)?'
 
 #Proceed PW Change at AD
