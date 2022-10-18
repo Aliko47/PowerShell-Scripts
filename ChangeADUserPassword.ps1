@@ -34,6 +34,12 @@ do {
 
 }while($newPassword_text -ne $ReTypeNewPassword_text)
 
+#Change password on next login?
+$logonChangePW = Read-Host 'Change password at next logon (Y/N)?'
+
+if ($logonChangePW -eq 'y'-or $logonChangePW -eq 'Y' -or $logonChangePW -eq '')
+    Set-ADUser -Identity $user -ChangePasswordAtLogon $true
+} 
 
 Try{
     #Proceed PW Change at AD
