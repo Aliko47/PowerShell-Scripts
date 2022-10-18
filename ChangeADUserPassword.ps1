@@ -1,7 +1,3 @@
-#Load AD Module, if RSAT is installed
-#Get-Module ActiveDirectory
-
-#Or you can use this one
 Try{
     #Load AD Module
     $DC = New-PSSession -ComputerName DC
@@ -14,10 +10,15 @@ Catch{
     break
 }
 
+#Get users sAMAccountName
+$user = Read-Host -Prompt 'Input AD-Username'
+
+#Or get current user sAMAccountName
+#$user = $env:UserName
+
 do {
 
-    #Get User sAMAccountName
-    $user = Read-Host -Prompt 'Input AD-Username'
+    #Type in password
     $newPassword = Read-Host -Prompt 'Input new password' -AsSecureString
     $ReTypeNewPassword = Read-Host -Prompt 'Retype new password' -AsSecureString
     #Encrypt password for comparing
@@ -34,12 +35,6 @@ do {
 
 }while($newPassword_text -ne $ReTypeNewPassword_text)
 
-#Change password on next login?
-$logonChangePW = Read-Host 'Change password at next logon (Y/N)?'
-
-if ($logonChangePW -eq 'y'-or $logonChangePW -eq 'Y' -or $logonChangePW -eq '')
-    Set-ADUser -Identity $user -ChangePasswordAtLogon $true
-} 
 
 Try{
     #Proceed PW Change at AD
