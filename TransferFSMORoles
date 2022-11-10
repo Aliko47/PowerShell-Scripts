@@ -1,0 +1,13 @@
+Move-ADDirectoryServerOperationMasterRole -Identity "DC01" PDCEmulator
+
+Move-ADDirectoryServerOperationMasterRole -Identity "DC01" RIDMaster
+
+Move-ADDirectoryServerOperationMasterRole -Identity "DC01" Infrastructuremaster
+
+Move-ADDirectoryServerOperationMasterRole -Identity "DC01" DomainNamingmaster
+
+Move-ADDirectoryServerOperationMasterRole -Identity "DC01" SchemaMaster
+
+get-addomain | select InfrastructureMaster, PDCEmulator, RIDMaster
+
+Get-ADForest | select DomainNamingMaster, SchemaMaster
